@@ -75,12 +75,17 @@
     display: none;
 }
 
+.hight {
+    padding-top: 2rem;
+}
 .collectionTitle {
     font-size: 36px;
     margin-left: 5rem;
     font-weight: bold;
-    padding-bottom: 1rem;
     overflow: visible;
+}
+.scrollableContainer {
+    padding-top: 2rem;
 }
 
 .addButton{

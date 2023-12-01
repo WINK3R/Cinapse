@@ -16,3 +16,158 @@
     -webkit-box-shadow: 0 10px 29px 7px rgba(0,0,0,0.57);
     box-shadow: 0 20px 29px 7px rgba(0,0,0,0.57);
 }
+
+.showCaseContainer {
+    width: 658px;
+    position: relative;
+    height: 370px;
+    display: flex;
+    transition: all 300ms ease-in;
+}
+
+
+.overlayContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.showCaseMovie {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 150ms ease-in;
+}
+
+.showCaseMovieHover {
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(0,0,0,0); /* Set your desired overlay color and opacity */
+    opacity: 0;
+    z-index: 1; /* Make sure the overlay is on top */
+    transition: all 300ms ease-in;
+}
+
+.showCaseContainer:hover .showCaseMovieHover {
+    opacity: 1; /* Set opacity to 1 on hover */
+    background-color: rgb(0,0,0,0.2); /* Set your desired overlay color and opacity */
+    transition: all 300ms ease-in;
+}
+
+.showCaseContainer:hover .showCaseMovie {
+    -webkit-filter: brightness(60%);
+    transition: all 150ms ease-in;
+    z-index: 1000;
+
+}
+
+.showCaseMovieHoverInfo {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all 300ms ease-in;
+    display: flex;
+    overflow-clip: fade;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: hidden;
+    padding: 3rem;
+}
+
+.movieTitle {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    line-height: 32px;
+}
+
+.date {
+    font-size: 18px;
+    color: var(--grey-2);
+}
+
+.moreButton {
+    height: 55px;
+    width: 55px !important;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 1rem;
+    transition: all 300ms ease-in;
+}
+
+.moreButton:hover {
+    scale: 1.2;
+    transition: all 300ms ease-in;
+}
+
+.detailed, .overlayContainer{
+    width: 760px;
+    transition: all 300ms ease-in;
+}
+
+.detailed, .showCaseContainer{
+    width: 760px ;
+    transition: all 300ms ease-in;
+}
+
+.detailed .showCaseMovieHover {
+    width: 760px !important ;
+    transition: all 300ms ease-in;
+}
+
+.detailed .showCaseMovieHoverInfo {
+    padding-left: 325px;
+    width: 760px !important ;
+    transition: all 300ms ease-in;
+}
+
+.detailed .moreButton {
+    opacity: 0;
+    transition: all 0ms ease-in;
+}
+.showCaseContainer :not(.detailed) {
+    width: 658px;
+    transition: all 300ms ease-in;
+}
+
+.detailed .showCaseMovie, .movieCover{
+    width: 760px;
+    transition: all 300ms ease-in;
+}
+
+.posterImage {
+    height: 400px !important;
+    width: 266px !important;
+    position: absolute !important;
+    z-index: 130 !important;
+    bottom: -100px;
+    left: 20px;
+    opacity: 0;
+    object-fit: cover;
+    transition: all 300ms ease-in;
+}
+
+.detailed .showCaseMovieHoverInfo {
+    width: 60%;
+
+}
+
+.detailed .movieTitle {
+    width: 100%;
+}
+
+.detailed .posterImage {
+    height: 409px !important;
+    width: 266px !important;
+    position: absolute !important;
+    left: 20px;
+    z-index: 130 !important;
+    bottom: -15px;
+    opacity: 1;
+    object-fit: cover;
+    transition: all 300ms ease-in;
+}
+

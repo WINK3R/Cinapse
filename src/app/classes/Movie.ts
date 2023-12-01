@@ -11,7 +11,7 @@ class Movie {
     overview: string;
     popularity: number;
     posterPath: string | null;
-    releaseDate: string;
+    releaseDate: Date;
     title: string;
     video: boolean;
     voteAverage: number;
@@ -27,7 +27,7 @@ class Movie {
         this.overview = data.overview;
         this.popularity = data.popularity;
         this.posterPath = ImageMapper(data.poster_path);
-        this.releaseDate = data.release_date;
+        this.releaseDate = new Date(data.release_date);
         this.title = data.title;
         this.video = data.video;
         this.voteAverage = data.vote_average;

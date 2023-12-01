@@ -12,9 +12,11 @@ import {
 } from "@/app/services/movieService";
 import Movie from '@/app/classes/Movie';
 import YouTube from 'react-youtube';
+import ShowCaseCollection from "@/app/ui/components/ShowCaseCollection";
 
 export default async function Page() {
-    const showCaseMovie: Movie | null = await getMovieById(872585)
+    const theMostPopularMovie: Movie | null = await getMostPopularMovie()
+    const showCaseMovie: Movie | null = await getMovieById(theMostPopularMovie!.id)
     const popularMovies: Movie[] = await getPopularMovies()
     const nowPlayingMovies: Movie[] = await getNowPlayingMovies()
     const upcomingMovies: Movie[] = await getUpComingMovies()
@@ -49,9 +51,10 @@ export default async function Page() {
                 </div>
                 <div className={styles.heroGradiant}></div>
             </div>
+            <ShowCaseCollection title={"Nouveautés"} movies={upcomingMovies}></ShowCaseCollection>
             <CollectionRow title={"Tendances"} movies={popularMovies} type={"Popular"}></CollectionRow>
             <CollectionRow title={"Au cinéma"} movies={nowPlayingMovies} type={"NowPlaying"}></CollectionRow>
-            <CollectionRow title={"À venir"} movies={upcomingMovies} type={"UpComing"}></CollectionRow>
+
         </div>
     );
 }
