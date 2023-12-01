@@ -1,0 +1,99 @@
+
+.hero {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 700px;
+}
+.heroInfo {
+    z-index: 5;
+    margin: 2.5rem 5rem;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+}
+.heroVideo {
+    pointer-events: none;
+    width: 100%;
+    height: 700px;
+    overflow: hidden;
+    align-items: center;
+    justify-items: start;
+}
+
+.video {
+    position: relative;
+    top: -210px
+}
+
+
+.heroButtons {
+    padding-top: 1.5rem;
+    display: grid;
+    grid-gap: 5px;
+    width: 330px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.heroTitle {
+    line-height: 2.8rem;
+    font-weight: bold;
+    width: 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-size: 36px;
+}
+
+.heroImage {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.heroGradiant {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 41%; /* Adjust the height of the gradient overlay as needed */
+    background: linear-gradient(360deg, #0C0C0C 0%, rgba(12, 12, 12, 0.99) 9.73%, rgba(12, 12, 12, 0.97) 17.8%, rgba(11, 11, 11, 0.94) 24.48%, rgba(11, 11, 11, 0.90) 30.07%, rgba(10, 10, 10, 0.84) 34.84%, rgba(9, 9, 9, 0.78) 39.08%, rgba(9, 9, 9, 0.71) 43.07%, rgba(8, 8, 8, 0.64) 47.09%, rgba(7, 7, 7, 0.55) 51.43%, rgba(6, 6, 6, 0.47) 56.37%, rgba(5, 5, 5, 0.38) 62.19%, rgba(3, 3, 3, 0.28) 69.19%, rgba(2, 2, 2, 0.19) 77.63%, rgba(1, 1, 1, 0.09) 87.81%, rgba(0, 0, 0, 0.00) 100%);    z-index: 1;
+}
+
+.collectionContainer {
+    display: flex;
+    flex-direction: column;
+    overflow-x: visible;
+    margin: 5rem 0;
+    color: white;
+
+}
+
+.collectionContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.collectionTitle {
+    font-size: 36px;
+    margin-left: 5rem;
+    font-weight: bold;
+    padding-bottom: 1rem;
+    overflow: visible;
+}
+
+.addButton{
+    width: 259px;
+    height: 389px;
+    object-fit: cover;
+    transition: all 300ms ease-in;
+    filter: brightness(1);
+}
+
+.addButton:hover {
+    -webkit-filter: brightness(130%);
+    transition: all 300ms ease-in;
+}
+
+

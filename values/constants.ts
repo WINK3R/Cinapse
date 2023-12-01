@@ -1,0 +1,2 @@
+export const APIKEY : string = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMTMzNDIyYjViMWYyMjQyOGU4MDc0NDcwZDMyMTg2NSIsInN1YiI6IjYzZGE1MDA5YTZjMTA0MDA4NTg3YTc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EfOvULIxDJ2hrltaGwdRUkAE1wd1HCHtkCP835z7PaY"
+export const BASEURL : string = "https://api.themoviedb.org/3"
