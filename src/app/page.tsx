@@ -8,10 +8,9 @@ import {
     getMostPopularMovie, getMovieById,
     getNowPlayingMovies,
     getPopularMovies,
-    getUpComingMovies, getVideoUrl
+    getUpComingMovies
 } from "@/app/services/movieService";
 import Movie from '@/app/classes/Movie';
-import YouTube from 'react-youtube';
 import ShowCaseCollection from "@/app/ui/components/ShowCaseCollection";
 import { use } from "react";
 import Image from "next/image";
@@ -33,9 +32,6 @@ async function fetchDataUpComing() {
     return await getUpComingMovies()
 }
 
-async function getVideo(id: number) {
-    return await getVideoUrl(id)
-}
 
 
 export default function Page() {
@@ -44,20 +40,6 @@ export default function Page() {
     const popularMovies: Movie[] = use(fetchDataPopular())
     const nowPlayingMovies: Movie[] = use(fetchDataNowPlaying())
     const upcomingMovies: Movie[] = use(fetchDataUpComing())
-
-
-    const opts = {
-        height: '1120',
-        width: '1580',
-        playerVars: {
-            autoplay: 1,
-        },
-    };
-
-   function _onReady(event : any){
-        event.target.mute()
-       event.target.playVideo();
-    }
 
 
     return (
