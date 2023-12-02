@@ -22,18 +22,18 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
         <div className={styles.showCaseContainer} onMouseLeave={handleLeaveMouse}>
             {movie.backdropPath &&
                 <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`}>
-                    <Image src={movie.backdropPath} key={movie.id} alt={"poster"} className={styles.showCaseMovie} />
+                    <Image src={movie.backdropPath} key={movie.id} alt={"poster"} className={styles.showCaseMovie} width={658} height={370} />
                     <div className={styles.showCaseMovieHover} >
                         <div className={styles.showCaseMovieHoverInfo}>
                             <p className={styles.movieTitle}>{movie.title}</p>
                             <p className={styles.date}>{movie.releaseDate.getFullYear()}</p>
-                            <Image src="/more-button.svg" className={styles.moreButton} onClick={handleMoreButtonClick} alt={"Details button"}></Image>
+                            <Image src="/more-button.svg" className={styles.moreButton} onClick={handleMoreButtonClick} alt={"Details button"} width={55} height={55} ></Image>
 
                         </div>
 
 
                     </div>
-                    <Image src={movie.posterPath!} key={movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} />
+                    <Image src={movie.posterPath!} key={movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />
                 </div>
 
             }
