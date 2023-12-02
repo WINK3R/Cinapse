@@ -1,3 +1,4 @@
+"use client";
 import styles from '@/app/ui/app.module.css';
 import HeroButtonPrimary from "@/app/ui/components/HeroButtonPrimary";
 import HeroButtonSecondary from "@/app/ui/components/HeroButtonSecondary";
@@ -12,13 +13,36 @@ import {
 import Movie from '@/app/classes/Movie';
 import YouTube from 'react-youtube';
 import ShowCaseCollection from "@/app/ui/components/ShowCaseCollection";
+import { use } from "react";
 
-export default async function Page() {
-    const theMostPopularMovie: Movie | null = await getMostPopularMovie()
-    const showCaseMovie: Movie | null = await getMovieById(theMostPopularMovie!.id)
-    const popularMovies: Movie[] = await getPopularMovies()
-    const nowPlayingMovies: Movie[] = await getNowPlayingMovies()
-    const upcomingMovies: Movie[] = await getUpComingMovies()
+async function fetchDataMostPopular() {
+    return await getMostPopularMovie();
+}
+async function fetchDatashowCaseMovie(id: number) {
+    return await getMovieById(id);
+}
+async function fetchDataPopular() {
+    return await getPopularMovies();
+}
+async function fetchDataNowPlaying() {
+    return await getNowPlayingMovies()
+}
+
+async function fetchDataUpComing() {
+    return await getUpComingMovies()
+}
+
+async function getVideo(id: number) {
+    return await getVideoUrl(id)
+}
+
+
+export default function Page() {
+    const theMostPopularMovie: Movie | null = use(fetchDataMostPopular())
+    const showCaseMovie: Movie | null = use(fetchDatashowCaseMovie(theMostPopularMovie!.id as number))
+    const popularMovies: Movie[] = use(fetchDataPopular())
+    const nowPlayingMovies: Movie[] = use(fetchDataNowPlaying())
+    const upcomingMovies: Movie[] = use(fetchDataUpComing())
 
 
     const opts = {
@@ -39,7 +63,7 @@ export default async function Page() {
         <div>
             <div className={styles.hero}>
                 <div className={styles.heroVideo}>
-                    <YouTube videoId={await getVideoUrl(showCaseMovie!.id as number)?? undefined} opts={opts} onReady={_onReady} className={styles.video}/>
+                    <YouTube videoId={use(getVideo(theMostPopularMovie!.id))?? undefined} opts={opts} onReady={_onReady} className={styles.video}/>
                 </div>
                 <div className={styles.heroInfo}>
                     <h1 className={styles.heroTitle}>{showCaseMovie?.title}</h1>
