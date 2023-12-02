@@ -6,7 +6,7 @@ import Image from "next/image";
 const NavBar = () => {
     return (
         <div className={styles.NavBar}>
-            <Link href={'/'}><Image src="/icon.svg" width={145} height={145} alt={"icon"}/></Link>
+            <Link href={'/'}><Image src="/icon.svg" width={145} height={25} alt={"icon"} priority={true}/></Link>
             <div className={styles.NavBarContainer}>
                 <div className={styles.ShortCuts}>
                     <Link href={'/home'}><p>Tendances</p></Link>
