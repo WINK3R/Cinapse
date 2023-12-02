@@ -1,4 +1,3 @@
-"use client";
 import styles from '@/app/ui/app.module.css';
 import HeroButtonPrimary from "@/app/ui/components/HeroButtonPrimary";
 import HeroButtonSecondary from "@/app/ui/components/HeroButtonSecondary";
