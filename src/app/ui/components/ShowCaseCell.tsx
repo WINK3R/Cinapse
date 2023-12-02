@@ -1,7 +1,7 @@
-"use client";
 import React, {useState} from 'react';
 import styles from '@/app/ui/components/MovieCollectionCell.module.css';
 import Movie from "@/app/classes/Movie";
+import Image from "next/image";
 interface MovieCellProps {
     movie: Movie
 }
@@ -22,18 +22,18 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
         <div className={styles.showCaseContainer} onMouseLeave={handleLeaveMouse}>
             {movie.backdropPath &&
                 <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`}>
-                    <img src={movie.backdropPath} key={movie.id} alt={"poster"} className={styles.showCaseMovie} />
+                    <Image src={movie.backdropPath} key={movie.id} alt={"poster"} className={styles.showCaseMovie} />
                     <div className={styles.showCaseMovieHover} >
                         <div className={styles.showCaseMovieHoverInfo}>
                             <p className={styles.movieTitle}>{movie.title}</p>
                             <p className={styles.date}>{movie.releaseDate.getFullYear()}</p>
-                            <img src="/more-button.svg" className={styles.moreButton} onClick={handleMoreButtonClick}></img>
+                            <Image src="/more-button.svg" className={styles.moreButton} onClick={handleMoreButtonClick} alt={"Details button"}></Image>
 
                         </div>
 
 
                     </div>
-                    <img src={movie.posterPath!} key={movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} />
+                    <Image src={movie.posterPath!} key={movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} />
                 </div>
 
             }

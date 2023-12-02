@@ -1,9 +1,9 @@
-"use client"
 import styles from "@/app/ui/app.module.css";
 import React, {useState} from "react";
 import Movie from "@/app/classes/Movie";
 import MovieCollectionCell from "@/app/ui/components/MovieCollectionCell";
 import {getNowPlayingMovies, getPopularMovies, getUpComingMovies} from "@/app/services/movieService";
+import Image from "next/image";
 
 interface Props {
     title: string
@@ -51,11 +51,11 @@ const CollectionRow: React.FC<Props> = ({ title, movies,type }) => {
         <div className={styles.collectionContainer}>
             <h1 className={styles.collectionTitle}>{title}</h1>
             <div className={styles.scrollableContainer}>
-                <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll`}>
+                <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll ${styles.hight}`}>
                     {allMovies.map((movie: Movie, index) => (
                         <MovieCollectionCell movie={movie} key={index} />
                     ))}
-                    <img
+                    <Image
                         src="/loadMoreButton.svg"
                         width={259}
                         height={389}

@@ -12,7 +12,8 @@
 .movieCover:hover {
     -webkit-filter: brightness(110%) contrast(105%);
     transition: all 150ms ease-in;
-    z-index: 1000;
+    z-index: 20;
+    scale: 1.05;
     -webkit-box-shadow: 0 10px 29px 7px rgba(0,0,0,0.57);
     box-shadow: 0 20px 29px 7px rgba(0,0,0,0.57);
 }
@@ -142,7 +143,7 @@
     height: 400px !important;
     width: 266px !important;
     position: absolute !important;
-    z-index: 130 !important;
+    z-index: 10 !important;
     bottom: -100px;
     left: 20px;
     opacity: 0;
@@ -164,7 +165,7 @@
     width: 266px !important;
     position: absolute !important;
     left: 20px;
-    z-index: 130 !important;
+    z-index: 10 !important;
     bottom: -15px;
     opacity: 1;
     object-fit: cover;

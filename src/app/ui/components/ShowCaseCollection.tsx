@@ -1,9 +1,9 @@
-"use client"
 import styles from "@/app/ui/app.module.css";
 import React, {useState} from "react";
 import Movie from "@/app/classes/Movie";
 import {getUpComingMovies} from "@/app/services/movieService";
 import ShowCaseCell from "@/app/ui/components/ShowCaseCell";
+import Image from "next/image";
 
 interface Props {
     title: string
@@ -40,7 +40,7 @@ const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
                     {allMovies.map((movie: Movie, index) => (
                         <ShowCaseCell movie={movie} key={index} />
                     ))}
-                    <img
+                    <Image
                         src="/loadMoreButton.svg"
                         width={259}
                         height={389}

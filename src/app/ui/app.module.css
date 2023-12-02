@@ -76,7 +76,7 @@
 }
 
 .hight {
-    padding-top: 2rem;
+    padding-top: 1.5rem;
 }
 .collectionTitle {
     font-size: 36px;
@@ -86,6 +86,7 @@
 }
 .scrollableContainer {
     padding-top: 2rem;
+    overflow: visible;
 }
 
 .addButton{
