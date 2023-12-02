@@ -1,4 +1,4 @@
-
+"use client"
 import styles from "@/app/ui/app.module.css";
 import React, {useState} from "react";
 import Movie from "@/app/classes/Movie";
@@ -19,8 +19,7 @@ const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
     const [allMovies, setAllMovies] = useState<Movie[]>(movies);
     const addMoreMovies = async () => {
         try {
-            let moreMovies: Movie[] = []
-            moreMovies = await getUpComingMovies(page);
+            let moreMovies = await getUpComingMovies(page);
 
 
 
