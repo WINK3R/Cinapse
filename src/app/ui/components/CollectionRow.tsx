@@ -53,8 +53,8 @@ const CollectionRow: React.FC<Props> = ({ title, movies,type }) => {
             <h1 className={styles.collectionTitle}>{title}</h1>
             <div className={styles.scrollableContainer}>
                 <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll ${styles.hight}`}>
-                    {allMovies.map((movie: Movie, index) => (
-                        <MovieCollectionCell movie={movie} key={index} />
+                    {allMovies.map((movie: Movie) => (
+                        <MovieCollectionCell movie={movie} key={movie.id} />
                     ))}
                     <Image
                         src="/loadMoreButton.svg"

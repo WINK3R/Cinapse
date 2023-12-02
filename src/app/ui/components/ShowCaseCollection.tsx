@@ -1,4 +1,4 @@
-"use client"
+
 import styles from "@/app/ui/app.module.css";
 import React, {useState} from "react";
 import Movie from "@/app/classes/Movie";
@@ -26,10 +26,10 @@ const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
 
 
             // Update movies using the previous state
-            setAllMovies((prevMovies) => [...prevMovies, ...moreMovies]);
+            setAllMovies([...allMovies, ...moreMovies])
 
             // Update the page
-            setPage((prevPage) => prevPage + 1);
+            setPage(page+1);
         } catch (error) {
             console.error("Error fetching more movies:", error);
         }
@@ -38,8 +38,8 @@ const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
         <div className={styles.collectionContainer}>
             <h1 className={styles.collectionTitle}>{title}</h1>
                 <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.hight}`}>
-                    {allMovies.map((movie: Movie, index) => (
-                        <ShowCaseCell movie={movie} key={index} />
+                    {allMovies.map((movie: Movie) => (
+                        <ShowCaseCell movie={movie} key={movie.id} />
                     ))}
                     <Image
                         src="/loadMoreButton.svg"

@@ -14,6 +14,7 @@ import Movie from '@/app/classes/Movie';
 import YouTube from 'react-youtube';
 import ShowCaseCollection from "@/app/ui/components/ShowCaseCollection";
 import { use } from "react";
+import Image from "next/image";
 
 async function fetchDataMostPopular() {
     return await getMostPopularMovie();
@@ -39,7 +40,7 @@ async function getVideo(id: number) {
 
 export default function Page() {
     const theMostPopularMovie: Movie | null = use(fetchDataMostPopular())
-    const showCaseMovie: Movie | null = use(fetchDatashowCaseMovie(theMostPopularMovie!.id as number))
+    const showCaseMovie: Movie | null = use(fetchDatashowCaseMovie(theMostPopularMovie!.id))
     const popularMovies: Movie[] = use(fetchDataPopular())
     const nowPlayingMovies: Movie[] = use(fetchDataNowPlaying())
     const upcomingMovies: Movie[] = use(fetchDataUpComing())
@@ -63,7 +64,7 @@ export default function Page() {
         <div>
             <div className={styles.hero}>
                 <div className={styles.heroVideo}>
-                    <YouTube videoId={use(getVideo(theMostPopularMovie!.id))?? undefined} opts={opts} onReady={_onReady} className={styles.video}/>
+                    <Image src={theMostPopularMovie?.backdropPath!} alt={"poster path"} priority={true} className={styles.heroImage} width={1920} height={1080}></Image>
                 </div>
                 <div className={styles.heroInfo}>
                     <h1 className={styles.heroTitle}>{showCaseMovie?.title}</h1>
