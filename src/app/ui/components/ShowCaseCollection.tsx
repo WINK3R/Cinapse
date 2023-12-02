@@ -1,3 +1,4 @@
+"use client"
 import styles from "@/app/ui/app.module.css";
 import React, {useState} from "react";
 import Movie from "@/app/classes/Movie";
