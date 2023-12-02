@@ -1,22 +1,19 @@
-import axios, { AxiosResponse} from 'axios';
 import Movie from "@/app/classes/Movie";
-import {APIKEY, BASEURL } from "../../../values/constants";
-
-
+import {APIKEY, BASEURL} from "../../../values/constants";
 
 
 async function makeRequest<T>(url: string): Promise<T> {
     try {
-        const response: AxiosResponse<T> = await axios.get(url, {
+        const response = await fetch(url, {
+            next: { revalidate: 0},
             headers: {
                 Authorization: `Bearer ${APIKEY}`,
                 Accept: 'application/json',
             },
-        })
-        return response.data
-    } catch (error) {
-        // @ts-ignore
-        throw new Error(`Error making API request: ${error.message}`)
+        });
+        return await response.json();
+    } catch (error : any) {
+        throw new Error(`Error making API request: ${error.message}`);
     }
 }
 

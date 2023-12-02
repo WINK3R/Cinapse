@@ -1,4 +1,4 @@
-"use client"
+
 import React, {useState} from 'react';
 import styles from '@/app/ui/components/MovieCollectionCell.module.css';
 import Movie from "@/app/classes/Movie";
@@ -23,7 +23,7 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
         <div className={styles.showCaseContainer} onMouseLeave={handleLeaveMouse}>
             {movie.backdropPath &&
                 <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`}>
-                    <Image src={movie.backdropPath} key={movie.id} alt={"poster"} className={styles.showCaseMovie} width={658} height={370} />
+                    <Image src={movie.backdropPath} key={"BackDrop"+movie.id} alt={"poster"} className={styles.showCaseMovie} width={658} height={370} />
                     <div className={styles.showCaseMovieHover} >
                         <div className={styles.showCaseMovieHoverInfo}>
                             <p className={styles.movieTitle}>{movie.title}</p>
@@ -34,7 +34,7 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
 
 
                     </div>
-                    <Image src={movie.posterPath!} key={movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />
+                    <Image src={movie.posterPath!} key={"Poster"+movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />
                 </div>
 
             }

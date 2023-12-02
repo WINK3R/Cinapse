@@ -1,4 +1,4 @@
-'use client'
+
 import React from 'react';
 import styles from '@/app/ui/components/MovieCollectionCell.module.css';
 import Movie from "@/app/classes/Movie";

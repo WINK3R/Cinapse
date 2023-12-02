@@ -14,20 +14,11 @@ interface Props {
 const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
 
     const [page, setPage] = useState<number>(2);
-
-    // State for storing the movie data
     const [allMovies, setAllMovies] = useState<Movie[]>(movies);
     const addMoreMovies = async () => {
         try {
             let moreMovies = await getUpComingMovies(page);
-
-
-
-
-            // Update movies using the previous state
-            setAllMovies([...allMovies, ...moreMovies])
-
-            // Update the page
+            setAllMovies(moreMovies)
             setPage(page+1);
         } catch (error) {
             console.error("Error fetching more movies:", error);
@@ -37,8 +28,8 @@ const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
         <div className={styles.collectionContainer}>
             <h1 className={styles.collectionTitle}>{title}</h1>
                 <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.hight}`}>
-                    {allMovies.map((movie: Movie) => (
-                        <ShowCaseCell movie={movie} key={movie.id} />
+                    {allMovies.map((movie: Movie, idx) => (
+                        <ShowCaseCell movie={movie} key={idx} />
                     ))}
                     <Image
                         src="/loadMoreButton.svg"

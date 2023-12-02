@@ -1,4 +1,4 @@
-"use client"
+
 import React from 'react';
 import styles from '@/app/ui/components/HeroButtonSecondary.module.css';
 interface HeroButtonPrimaryProps {
