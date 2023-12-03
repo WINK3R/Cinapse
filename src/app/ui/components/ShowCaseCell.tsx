@@ -26,9 +26,8 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
     }
     return (
         <div className={styles.showCaseContainer} onMouseLeave={handleLeaveMouse}>
-            {movie.backdropPath &&
-                <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`}>
-                    <Image src={movie.backdropPath} key={"BackDrop"+movie.id} alt={"poster"} className={styles.showCaseMovie} width={658} height={370} />
+            <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`}>
+                    <Image src={movie.backdropPath ?? movie.posterPath!} key={"BackDrop"+movie.id} alt={"poster"} className={styles.showCaseMovie} width={658} height={370} />
                     <div className={styles.showCaseMovieHover} >
                         <div className={styles.showCaseMovieHoverInfo}>
                             <p className={styles.movieTitle}>{movie.title}</p>
@@ -43,7 +42,6 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
                     <Image src={movie.posterPath!} key={"Poster"+movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />:<></>}
                 </div>
 
-            }
         </div>
     );
 };
