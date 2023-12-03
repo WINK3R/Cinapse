@@ -41,7 +41,7 @@ export async function getNowPlayingMovies(page: number = 1): Promise<Movie[]> {
 }
 
 export async function getTrendingMovies(page: number = 1): Promise<Movie[]> {
-    const url = `${BASEURL}/trending/movie/day?language=fr-FR&page=${page}`;
+    const url = `${BASEURL}/trending/all/day?language=fr-FR&page=${page}`;
 
     try {
         const { results } = await makeRequest<{ results: any[] }>(url);
@@ -54,6 +54,18 @@ export async function getTrendingMovies(page: number = 1): Promise<Movie[]> {
 
 export async function getTopRatedMovies(page: number = 1): Promise<Movie[]> {
     const url = `${BASEURL}/movie/top_rated?language=fr-FR&page=${page}`;
+
+    try {
+        const { results } = await makeRequest<{ results: any[] }>(url);
+        return results.map(movieData => new Movie(movieData));
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        return [];
+    }
+}
+
+export async function getTopRatedSeries(page: number = 1): Promise<Movie[]> {
+    const url = `${BASEURL}/tv/top_rated?language=fr-FR&page=${page}`;
 
     try {
         const { results } = await makeRequest<{ results: any[] }>(url);
@@ -78,7 +90,7 @@ export async function getMostPopularMovie(): Promise<Movie | null> {
 
 // Function to get the video URL for a given movie ID
 export async function getVideoUrl(movieId: number): Promise<string | null> {
-    const url = `${BASEURL}/movie/${movieId}/videos`;
+    const url = `${BASEURL}/${movieId}/videos`;
 
     try {
         const { results } = await makeRequest<{ results: any[] }>(url);
@@ -95,7 +107,7 @@ export async function getVideoUrl(movieId: number): Promise<string | null> {
 }
 
 export async function getMovieById(movieId: number): Promise<Movie | null> {
-    const url = `${BASEURL}/movie/${movieId}?language=fr-FR`;
+    const url = `${BASEURL}/${movieId}?language=fr-FR`;
 
     try {
         const movieData = await makeRequest<{ id: number; [key: string]: any }>(url);

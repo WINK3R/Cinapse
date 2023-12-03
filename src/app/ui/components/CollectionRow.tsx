@@ -14,16 +14,30 @@ export function CollectionRow({title, fetchFunction}: props) {
     const [page, setPage] = useState<number>(1);
     const [movies, setMovies] = useState<Movie[]>([])
     useEffect(() => {
-        fetchFunction(page).then((movies) => {
-            setMovies(movies)
-            setPage(page + 1)
-        })
+        fetchData()
     }, [])
+
+    function handleAdd() {
+        fetchData()
+    }
+
+    function fetchData() {
+        fetchFunction(page).then((newMovies) => {
+            setMovies((prevMovies) => {
+                const uniqueNewMovies = newMovies.filter(
+                    (newMovie) => !prevMovies.some((prevMovie) => prevMovie.title === newMovie.title)
+                );
+
+                return [...prevMovies, ...uniqueNewMovies];
+            });
+            setPage((prevPage) => prevPage + 1);
+        });
+    }
     return (
         <div className={styles.collectionContainer}>
             <h1 className={styles.collectionTitle}>{title}</h1>
-            <div className={`${styles.scrollableContaine} ${styles.spacingRow}`}>
-                <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll`}>
+
+                <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-visible ${styles.spacingRow}`}>
                     {movies.map((movie: Movie) => (
                         <MovieCollectionCell movie={movie} key={movie.id} />
                     ))}
@@ -33,9 +47,9 @@ export function CollectionRow({title, fetchFunction}: props) {
                         height={389}
                         alt={"poster"}
                         className={styles.addButton}
+                        onClick={handleAdd}
                     />
                 </div>
-            </div>
         </div>
     );
 }

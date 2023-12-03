@@ -8,7 +8,7 @@ import CollectionRow from "@/app/ui/components/CollectionRow";
 import {
     getMostPopularMovie,
     getNowPlayingMovies,
-    getPopularMovies, getTopRatedMovies,
+    getPopularMovies, getTopRatedMovies, getTopRatedSeries,
     getTrendingMovies
 } from "@/app/services/movieService";
 import {ShowCaseCollection} from "@/app/ui/components/ShowCaseCollection";
@@ -56,6 +56,9 @@ export default function Page() {
             </Suspense>
             <Suspense>
                 <CollectionRow title={"Top Films"} fetchFunction={getTopRatedMovies} ></CollectionRow>
+            </Suspense>
+            <Suspense>
+                <CollectionRow title={"Top Série TV"} fetchFunction={getTopRatedSeries} ></CollectionRow>
             </Suspense>
         </div>
     );

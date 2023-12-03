@@ -13,17 +13,24 @@ export function ShowCaseCollection({title, fetchFunction}: props) {
     const [page, setPage] = useState<number>(1);
     const [movies, setMovies] = useState<Movie[]>([])
     useEffect(() => {
-        fetchFunction(page).then((movies) => {
-            setMovies(movies)
-            setPage(page + 1)
-        })
+        fetchData()
     }, [])
 
     function handleAdd() {
+        fetchData()
+    }
+
+    function fetchData() {
         fetchFunction(page).then((newMovies) => {
-            setMovies([...movies, ...newMovies])
-            setPage(page + 1)
-        })
+            setMovies((prevMovies) => {
+                const uniqueNewMovies = newMovies.filter(
+                    (newMovie) => !prevMovies.some((prevMovie) => prevMovie.title === newMovie.title)
+                );
+
+                return [...prevMovies, ...uniqueNewMovies];
+            });
+            setPage((prevPage) => prevPage + 1);
+        });
     }
 
 
