@@ -9,6 +9,9 @@ async function makeRequest<T>(url: string): Promise<T> {
             headers: {
                 Authorization: `Bearer ${APIKEY}`,
                 Accept: 'application/json',
+                'Cache-Control': 'public, s-maxage=1',
+                'CDN-Cache-Control': 'public, s-maxage=60',
+                'Vercel-CDN-Cache-Control': 'public, s-maxage=3600',
             },
         });
         return await response.json();
