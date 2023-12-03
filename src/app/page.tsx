@@ -1,77 +1,42 @@
 "use client"
 import styles from '@/app/ui/app.module.css';
+import React, {Suspense, useEffect} from 'react';
+import 'react-loading-skeleton/dist/skeleton.css'
 import HeroButtonPrimary from "@/app/ui/components/HeroButtonPrimary";
 import HeroButtonSecondary from "@/app/ui/components/HeroButtonSecondary";
-import React, {useEffect, useState} from "react";
 import CollectionRow from "@/app/ui/components/CollectionRow";
 import {
     getMostPopularMovie,
     getNowPlayingMovies,
-    getPopularMovies,
-    getUpComingMovies
+    getPopularMovies, getTopRatedMovies,
+    getTrendingMovies
 } from "@/app/services/movieService";
-import Movie from '@/app/classes/Movie';
-import ShowCaseCollection from "@/app/ui/components/ShowCaseCollection";
+import {ShowCaseCollection} from "@/app/ui/components/ShowCaseCollection";
+import Movie from "@/app/classes/Movie";
 import Image from "next/image";
 
 
-async function fetchDataMostPopular() {
-    return await getMostPopularMovie();
-}
-async function fetchDataPopular() {
-    return await getPopularMovies();
-}
-async function fetchDataNowPlaying() {
-    return await getNowPlayingMovies()
-}
-
-async function fetchDataUpComing() {
-    return await getUpComingMovies()
-}
 
 
 
 export default function Page() {
-    const [theMostPopularMovie, setTheMostPopularMovie] = useState<Movie | null>(null);
-    const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
-    const [nowPlayingMovies, setNowPlayingMovies] = useState<Movie[]>([]);
-    const [upcomingMovies, setUpcomingMovies] = useState<Movie[]>([]);
-
+    const [theMostPopularMovie, setTheMostPopularMovie] = React.useState<Movie | null>(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const mostPopularMovieData = await fetchDataMostPopular();
-                setTheMostPopularMovie(mostPopularMovieData);
-
-                const popularMoviesData = await fetchDataPopular();
-                setPopularMovies(popularMoviesData);
-
-                const nowPlayingMoviesData = await fetchDataNowPlaying();
-                setNowPlayingMovies(nowPlayingMoviesData);
-
-                const upcomingMoviesData = await fetchDataUpComing();
-                setUpcomingMovies(upcomingMoviesData);
-                console.log(upcomingMoviesData);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
-
-    }, []);
-
-
-
+        getMostPopularMovie().then((movie) => {
+            setTheMostPopularMovie(movie)
+        })
+    }, [])
     return (
         <div>
 
             <div className={styles.hero}>
                 <div className={styles.heroVideo}>
-                    <Image src={theMostPopularMovie?.backdropPath!} alt={"poster path"} priority={true} className={styles.heroImage} width={1920} height={1080}></Image>
+                    {theMostPopularMovie?.backdropPath&&(
+                        <Image src={theMostPopularMovie?.backdropPath} alt={"poster path"} priority={true} className={styles.heroImage} width={1920} height={1080}></Image>)}
                 </div>
                 <div className={styles.heroInfo}>
+                    <h1 className={styles.heroTitle}>{theMostPopularMovie?.title}</h1>
                     <div className={styles.heroButtons}>
                         <HeroButtonPrimary>En savoir +</HeroButtonPrimary>
                         <HeroButtonSecondary>Enregistrer</HeroButtonSecondary>
@@ -80,10 +45,18 @@ export default function Page() {
                 <div className={styles.heroGradiant}></div>
 
             </div>
-            {upcomingMovies.length >0 &&(<ShowCaseCollection title={"Nouveautés"} movies={upcomingMovies}></ShowCaseCollection>)}
-            {popularMovies.length >0 &&(<CollectionRow title={"Tendances"} movies={popularMovies} type={"Popular"}></CollectionRow>)}
-            {nowPlayingMovies.length >0 &&(<CollectionRow title={"Au cinéma"} movies={nowPlayingMovies} type={"NowPlaying"}></CollectionRow>)}
-
+            <Suspense>
+                <ShowCaseCollection title={"Tendances"} fetchFunction={getTrendingMovies}></ShowCaseCollection>
+            </Suspense>
+            <Suspense>
+                <CollectionRow title={"Au cinéma"} fetchFunction={getNowPlayingMovies} ></CollectionRow>
+            </Suspense>
+            <Suspense>
+                <ShowCaseCollection title={"Populaires"} fetchFunction={getPopularMovies}></ShowCaseCollection>
+            </Suspense>
+            <Suspense>
+                <CollectionRow title={"Top Films"} fetchFunction={getTopRatedMovies} ></CollectionRow>
+            </Suspense>
         </div>
     );
 }

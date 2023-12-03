@@ -1,52 +1,51 @@
-"use client"
 import styles from "@/app/ui/app.module.css";
 import React, {useEffect, useState} from "react";
 import Movie from "@/app/classes/Movie";
-import {getUpComingMovies} from "@/app/services/movieService";
 import ShowCaseCell from "@/app/ui/components/ShowCaseCell";
 import Image from "next/image";
 
-interface Props {
+interface props {
     title: string
-    movies: Movie[]
+    fetchFunction: (page : number) => Promise<Movie[]>;
 }
 
-const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
-
-    const [page, setPage] = useState<number>(2);
-    const [allMovies, setAllMovies] = useState<Movie[]>([]);
-    console.log(allMovies)
-
+export function ShowCaseCollection({title, fetchFunction}: props) {
+    const [page, setPage] = useState<number>(1);
+    const [movies, setMovies] = useState<Movie[]>([])
     useEffect(() => {
-        setAllMovies(movies)
-    }, [movies])
-    const addMoreMovies = async () => {
-        try {
-            let moreMovies = await getUpComingMovies(page);
-            setAllMovies((prevMovies) => [...prevMovies, ...moreMovies]);
-            setPage(page+1);
-        } catch (error) {
-            console.error("Error fetching more movies:", error);
-        }
-    };
+        fetchFunction(page).then((movies) => {
+            setMovies(movies)
+            setPage(page + 1)
+        })
+    }, [])
+
+    function handleAdd() {
+        fetchFunction(page).then((newMovies) => {
+            setMovies([...movies, ...newMovies])
+            setPage(page + 1)
+        })
+    }
+
+
     return (
         <div className={styles.collectionContainer}>
             <h1 className={styles.collectionTitle}>{title}</h1>
-                <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.hight}`}>
-                    {allMovies.map((movie: Movie, idx) => (
-                        <ShowCaseCell movie={movie} key={idx} />
-                    ))}
-                    <Image
-                        src="/loadMoreButton.svg"
-                        width={259}
-                        height={389}
-                        alt={"poster"}
-                        className={styles.addButton}
-                        onClick={addMoreMovies}
-                    />
-                </div>
+            <div className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.spacingRow}`}>
+                {movies.map((movie: Movie, idx) => (
+                    <ShowCaseCell movie={movie} key={idx}/>
+                ))}
+                <Image
+                    src="/loadMoreButton.svg"
+                    width={259}
+                    height={389}
+                    alt={"poster"}
+                    className={styles.addButton}
+                    onClick={handleAdd}
+                />
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default ShowCaseCollection;
+
+
