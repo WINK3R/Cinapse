@@ -5,7 +5,7 @@ import HeroButtonSecondary from "@/app/ui/components/HeroButtonSecondary";
 import React, {useEffect, useState} from "react";
 import CollectionRow from "@/app/ui/components/CollectionRow";
 import {
-    getMostPopularMovie, getMovieById,
+    getMostPopularMovie,
     getNowPlayingMovies,
     getPopularMovies,
     getUpComingMovies
@@ -17,9 +17,6 @@ import Image from "next/image";
 
 async function fetchDataMostPopular() {
     return await getMostPopularMovie();
-}
-async function fetchDatashowCaseMovie(id: number) {
-    return await getMovieById(id);
 }
 async function fetchDataPopular() {
     return await getPopularMovies();
@@ -46,11 +43,6 @@ export default function Page() {
             try {
                 const mostPopularMovieData = await fetchDataMostPopular();
                 setTheMostPopularMovie(mostPopularMovieData);
-
-                if (mostPopularMovieData) {
-                    const showcaseMovieData = await fetchDatashowCaseMovie(mostPopularMovieData.id);
-                    setShowCaseMovie(showcaseMovieData);
-                }
 
                 const popularMoviesData = await fetchDataPopular();
                 setPopularMovies(popularMoviesData);
