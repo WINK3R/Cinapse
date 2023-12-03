@@ -1,6 +1,6 @@
 "use client"
 import styles from "@/app/ui/app.module.css";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Movie from "@/app/classes/Movie";
 import {getUpComingMovies} from "@/app/services/movieService";
 import ShowCaseCell from "@/app/ui/components/ShowCaseCell";
@@ -14,11 +14,16 @@ interface Props {
 const ShowCaseCollection: React.FC<Props> = ({ title, movies }) => {
 
     const [page, setPage] = useState<number>(2);
-    const [allMovies, setAllMovies] = useState<Movie[]>(movies);
+    const [allMovies, setAllMovies] = useState<Movie[]>([]);
+    console.log(allMovies)
+
+    useEffect(() => {
+        setAllMovies(movies)
+    }, [movies])
     const addMoreMovies = async () => {
         try {
             let moreMovies = await getUpComingMovies(page);
-            setAllMovies(moreMovies)
+            setAllMovies((prevMovies) => [...prevMovies, ...moreMovies]);
             setPage(page+1);
         } catch (error) {
             console.error("Error fetching more movies:", error);

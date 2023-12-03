@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '@/app/ui/components/MovieCollectionCell.module.css';
 import Movie from "@/app/classes/Movie";
 import Image from "next/image";
@@ -7,12 +7,17 @@ interface MovieCellProps {
     movie: Movie
 }
 const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
+    const isMounted = React.useRef(false);
     const [isActive, setIsActive] = useState(false)
+
+    useEffect(() => {
+        isMounted.current = true;
+    })
 
     const handleMoreButtonClick = () => {
         // Set isActive to true when the "more-button" is clicked
-        setIsActive(true)
-        console.log("clicked")
+       setIsActive(true)
+
     }
 
     const handleLeaveMouse = () => {
@@ -33,8 +38,9 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
                         </div>
 
 
-                    </div>
-                    <Image src={movie.posterPath!} key={"Poster"+movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />
+                    </div>{
+                    isMounted?
+                    <Image src={movie.posterPath!} key={"Poster"+movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />:<></>}
                 </div>
 
             }

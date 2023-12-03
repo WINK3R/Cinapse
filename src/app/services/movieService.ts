@@ -5,7 +5,6 @@ import {APIKEY, BASEURL} from "../../../values/constants";
 async function makeRequest<T>(url: string): Promise<T> {
     try {
         const response = await fetch(url, {
-            next: { revalidate: 0},
             headers: {
                 Authorization: `Bearer ${APIKEY}`,
                 Accept: 'application/json',

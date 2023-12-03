@@ -1,4 +1,4 @@
-
+"use client"
 import styles from "@/app/ui/app.module.css";
 import React, {useState} from "react";
 import Movie from "@/app/classes/Movie";
@@ -40,7 +40,7 @@ const CollectionRow: React.FC<Props> = ({ title, movies,type }) => {
 
 
             // Update movies using the previous state
-            setAllMovies((prevMovies) => [...prevMovies, ...moreMovies]);
+            setAllMovies((prevMovies) => [...prevMovies ?? [], ...moreMovies]);
 
             // Update the page
             setPage((prevPage) => prevPage + 1);
