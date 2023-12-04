@@ -3,13 +3,17 @@ import React, {useEffect, useState} from 'react';
 import styles from '@/app/ui/components/MovieCollectionCell.module.css';
 import Movie from "@/app/classes/Movie";
 import Image from "next/image";
+import BottomDrawer from "@/app/ui/components/modalInfo";
 interface MovieCellProps {
     movie: Movie
 }
 const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
     const isMounted = React.useRef(false);
     const [isActive, setIsActive] = useState(false)
-
+    const [isOpen, setIsOpen] = React.useState(false);
+    const toggleDrawer = (value: boolean) => {
+        setIsOpen(value);
+    };
     useEffect(() => {
         isMounted.current = true;
     })
@@ -25,10 +29,10 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
         setIsActive(false)
     }
     return (
-        <div className={styles.showCaseContainer} onMouseLeave={handleLeaveMouse}>
-            <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`}>
+        <div className={styles.showCaseContainer} onMouseLeave={handleLeaveMouse}  >
+            <div className={`${styles.overlayContainer} ${isActive?styles.detailed:''}`} onClick={() => {isActive?toggleDrawer(true):null}}>
                     <Image src={movie.backdropPath ?? movie.posterPath!} key={"BackDrop"+movie.id} alt={"poster"} className={styles.showCaseMovie} width={658} height={370} />
-                    <div className={styles.showCaseMovieHover} >
+                    <div className={styles.showCaseMovieHover}  >
                         <div className={styles.showCaseMovieHoverInfo}>
                             <p className={styles.movieTitle}>{movie.title}</p>
                             <p className={styles.date}>{movie.releaseDate.getFullYear()}</p>
@@ -41,7 +45,7 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
                     isMounted?
                     <Image src={movie.posterPath!} key={"Poster"+movie.id} alt={"poster"} className={`${styles.posterImage} ${isActive?styles.detailed:''}`} width={465} height={698}  />:<></>}
                 </div>
-
+            <BottomDrawer isOpen={isOpen} movie={movie} toggleDrawer={toggleDrawer}></BottomDrawer>
         </div>
     );
 };
