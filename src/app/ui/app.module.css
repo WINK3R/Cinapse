@@ -42,6 +42,64 @@
     font-size: 36px;
 }
 
+.scrollButtonContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: rgba(12, 12, 12, 0.43);
+    z-index: 200;
+    right: 0;
+    height: 389px;
+    opacity: 0;
+}
+
+.scrollButtonContainerLeft {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: rgba(12, 12, 12, 0.43);
+    z-index: 200;
+    left: 0;
+    height: 389px;
+    opacity: 0;
+}
+
+
+.scrollButtonContainerLeft:hover {
+    opacity: 1;
+    transition: all 300ms ease-in;
+}
+
+.scrollAnimation {
+    transition: transform 0.5s ease-in-out;
+}
+
+.scrollAnimation:hover {
+    transform: scale(1.1);
+}
+
+
+.scrollButtonContainer:hover {
+    opacity: 1;
+    transition: all 300ms ease-in;
+}
+
+.scrollButton {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    transition: all 300ms ease-in;
+    filter: brightness(1);
+}
+
+.left {
+    transform: rotate(180deg);
+}
+
 .heroImage {
     position: fixed;
     object-fit: cover;
