@@ -236,8 +236,8 @@ export async function getNowPlayingSeries(page: number = 1): Promise<Movie[]> {
     }
 }
 
-export async function getPopularSeries(): Promise<Movie[]> {
-    const url = `${BASEURL}/tv/popular?language=fr-FR`;
+export async function getPopularSeries(page: number = 1): Promise<Movie[]> {
+    const url = `${BASEURL}/tv/popular?language=fr-FR&page=${page}`;
 
     try {
         const { results } = await makeRequest<{ results: any[] }>(url);
@@ -248,8 +248,8 @@ export async function getPopularSeries(): Promise<Movie[]> {
     }
 }
 
-export async function getTrendingSeries() {
-    const url = `${BASEURL}/trending/tv/day?language=fr-FR`;
+export async function getTrendingSeries(page: number = 1) {
+    const url = `${BASEURL}/trending/tv/day?language=fr-FR&page=${page}`;
 
     try {
         const { results } = await makeRequest<{ results: any[] }>(url);
