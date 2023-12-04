@@ -1,5 +1,6 @@
 import Movie from "@/app/classes/Movie";
 import {APIKEY, BASEURL} from "../../../values/constants";
+import WatchProvider from "@/app/classes/WatchProvider";
 
 
 async function makeRequest<T>(url: string): Promise<T> {
@@ -41,6 +42,18 @@ export async function getNowPlayingMovies(page: number = 1): Promise<Movie[]> {
 }
 
 export async function getTrendingMovies(page: number = 1): Promise<Movie[]> {
+    const url = `${BASEURL}/trending/movie/day?language=fr-FR&page=${page}`;
+
+    try {
+        const { results } = await makeRequest<{ results: any[] }>(url);
+        return results.map(movieData => new Movie(movieData));
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        return [];
+    }
+}
+
+export async function getTrending(page: number = 1): Promise<Movie[]> {
     const url = `${BASEURL}/trending/all/day?language=fr-FR&page=${page}`;
 
     try {
@@ -117,6 +130,133 @@ export async function getMovieById(movieId: number): Promise<Movie | null> {
     } catch (error) {
         console.error(`Error fetching movie by ID ${movieId}:`, error);
         return null;
+    }
+}
+
+export async function getWatchProvidersSerie(seriesId: number): Promise<WatchProvider[]> {
+
+    const url = `${BASEURL}/tv/${seriesId}/watch/providers`;
+
+    try {
+        const { results } = await makeRequest<{ results: any }>(url);
+        // Assuming your WatchProvider class has a constructor that takes provider data
+        return results ? results[Object.keys(results)[0]].flatrate.map((providerData: any) => new WatchProvider(providerData)) : [];
+    } catch (error) {
+        console.error('Error fetching watch providers:', error);
+        return [];
+    }
+}
+
+export async function getWatchProvidersMovie(movieId: number): Promise<WatchProvider[]> {
+    const url = `${BASEURL}/movie/${movieId}/watch/providers`;
+
+    // Specify the regions you want to include
+    const targetRegions = ['FR', 'US'];
+
+    try {
+        const { results } = await makeRequest<{ results: any }>(url);
+        if (results) {
+            const providers: WatchProvider[] = [];
+
+            // Create a Set to keep track of unique provider IDs
+            const uniqueProviderIds = new Set<number>();
+
+            // Iterate over the specified regions
+            targetRegions.forEach((region) => {
+                // Check if the region exists in the results
+                if (results[region]) {
+                    // Iterate over flatrate providers in each region
+                    if (results[region].flatrate) {
+                        results[region].flatrate.forEach((providerData: any) => {
+                            const providerId = providerData.provider_id;
+
+                            // Check if the provider ID is unique
+                            if (!uniqueProviderIds.has(providerId)) {
+                                uniqueProviderIds.add(providerId);
+
+                                // Create a WatchProvider instance and add it to the array
+                                providers.push(new WatchProvider(providerData));
+                            }
+                        });
+                    }
+
+                    // Iterate over rent providers in each region
+                    if (results[region].rent) {
+                        results[region].rent.forEach((providerData: any) => {
+                            const providerId = providerData.provider_id;
+
+                            // Check if the provider ID is unique
+                            if (!uniqueProviderIds.has(providerId)) {
+                                uniqueProviderIds.add(providerId);
+
+                                // Create a WatchProvider instance and add it to the array
+                                providers.push(new WatchProvider(providerData));
+                            }
+                        });
+                    }
+
+                    // Iterate over buy providers in each region
+                    if (results[region].buy) {
+                        results[region].buy.forEach((providerData: any) => {
+                            const providerId = providerData.provider_id;
+
+                            // Check if the provider ID is unique
+                            if (!uniqueProviderIds.has(providerId)) {
+                                uniqueProviderIds.add(providerId);
+
+                                // Create a WatchProvider instance and add it to the array
+                                providers.push(new WatchProvider(providerData));
+                            }
+                        });
+                    }
+                }
+            });
+
+            return providers;
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error('Error fetching watch providers for movie:', error);
+        return [];
+    }
+}
+
+
+
+export async function getNowPlayingSeries(page: number = 1): Promise<Movie[]> {
+    const url = `${BASEURL}/tv/on_the_air?language=fr-FR&page=${page}`;
+
+    try {
+        const { results } = await makeRequest<{ results: any[] }>(url);
+        return results.map(movieData => new Movie(movieData));
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        return [];
+    }
+}
+
+export async function getPopularSeries(): Promise<Movie[]> {
+    const url = `${BASEURL}/tv/popular?language=fr-FR`;
+
+    try {
+        const { results } = await makeRequest<{ results: any[] }>(url);
+        return results.map(movieData => new Movie(movieData));
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        return [];
+    }
+}
+
+export async function getTrendingSeries() {
+    const url = `${BASEURL}/trending/tv/day?language=fr-FR`;
+
+    try {
+        const { results } = await makeRequest<{ results: any[] }>(url);
+        return results.map(movieData => new Movie(movieData));
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        return [];
     }
 }
 

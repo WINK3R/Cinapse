@@ -9,9 +9,9 @@ const NavBar = () => {
             <Link href={'/'}><Image src="/icon.svg" width={145} height={25} alt={"icon"} priority={true}/></Link>
             <div className={styles.NavBarContainer}>
                 <div className={styles.ShortCuts}>
-                    <Link href={'/home'}><p>Tendances</p></Link>
-                    <p>Nouveautés</p>
-                    <p>Découvrir</p>
+                    <Link href={'/discover'}><p>Découvrir</p></Link>
+                    <Link href={'/movies'}><p>Films</p></Link>
+                    <Link href={'/series'}><p>Séries</p></Link>
                 </div>
                 <div className={styles.ShortCuts}>
                     <p>Favoris</p>

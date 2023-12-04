@@ -7,6 +7,9 @@
     -webkit-box-shadow: 0 10px 29px 7px rgba(0,0,0,0);
     box-shadow: 0 20px 29px 7px rgba(0,0,0,0);
 }
+.cover {
+
+}
 
 .movieCover:hover {
     -webkit-filter: brightness(110%) contrast(105%);
@@ -16,6 +19,7 @@
     -webkit-box-shadow: 0 10px 29px 7px rgba(0,0,0,0.57);
     box-shadow: 0 20px 29px 7px rgba(0,0,0,0.57);
 }
+
 
 .showCaseContainer {
     width: 658px;
