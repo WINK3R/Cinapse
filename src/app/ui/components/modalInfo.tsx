@@ -1,15 +1,23 @@
 "use client"
-import React, { useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {IconButton, Rating, SwipeableDrawer} from "@mui/material";
 import styles from "@/app/ui/components/modalInfo.module.css";
 import Movie from "@/app/classes/Movie";
 import { getGenreNameByIdMovie} from "../../../../values/MovieGenre";
 import StarIcon from '@mui/icons-material/Star';
 import CloseIcon from '@mui/icons-material/Close';
-import { getWatchProvidersMovie, getWatchProvidersSerie} from "@/app/services/movieService";
+import { Carousel } from 'flowbite-react';
+import {
+    getMovieImagesMovies,
+    getMovieImagesSeries,
+    getWatchProvidersMovie,
+    getWatchProvidersSerie
+} from "@/app/services/movieService";
 import WatchProvider from "@/app/classes/WatchProvider";
 import {getGenreNameByIdSerie} from "../../../../values/SerieGenre";
 import Image from "next/image";
+import {ImageMovie} from "@/app/classes/ImageMovie";
+
 
 interface modalProps{
     movie: Movie
@@ -17,7 +25,8 @@ interface modalProps{
     toggleDrawer: (value : boolean) => void;
 }
 export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
-    const [watchProviders, setWatchProviders] = React.useState<WatchProvider[]>([]);
+    const [watchProviders, setWatchProviders] = useState<WatchProvider[]>([]);
+    const [images, setImages] = useState<ImageMovie[]>([]);
     useEffect(() => {
         const fetchWatchProviders = async () => {
             try {
@@ -34,14 +43,30 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
                 console.error('Error fetching watch providers:', error);
             }
         };
+        const fetchMovieImages = async () => {
+            try {
+                let movieImages : ImageMovie[];
+                if(movie.type == "movie"){
+                    movieImages = await getMovieImagesMovies(movie.id);
+
+                }
+                else {
+                    movieImages = await getMovieImagesSeries(movie.id);
+                }
+                setImages(movieImages);
+            } catch (error) {
+                console.error('Error fetching movie images:', error);
+            }
+        };
 
         fetchWatchProviders();
-    }, []);
+        fetchMovieImages();
+    }, [movie]);
 
     return (
 
             <SwipeableDrawer anchor="bottom" open={isOpen} onClose={() => {toggleDrawer(false)}} BackdropProps={{style:{backgroundColor:"black", opacity:0.4}}} PaperProps={{
-                sx: {width: "70%", height: "94%",borderRadius: "20px 20px 0px 0px", margin: "auto", marginTop: '5rem', backgroundColor: "black", color: "white"}
+                sx: {overflow:"scroll", minHeight: "100%",width: "70%",borderRadius: "20px 20px 0px 0px", margin: "auto", backgroundColor: "black", color: "white"}
             }} onOpen={function (event: React.SyntheticEvent<{}, Event>): void {
                 throw new Error('Function not implemented.');
             }} allowSwipeInChildren={ true}>
@@ -68,6 +93,13 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
                                         watchProviders.map((provider : WatchProvider, index: number) => (
                                             provider.logoPath && provider.displayPriority < 12 && (<Image key={"provider"+index} src={provider.logoPath} alt={provider.providerName} width={50} height={50} className={styles.providerLogo}></Image>)))
                                     }
+                                    {
+                                        watchProviders.length > 0 && (<div className={styles.label_provider}>
+                                            <p>Disponible en streaming</p>
+                                            <p>Regarder maintenant</p>
+                                        </div>)
+                                    }
+
                                 </div>
                             </div>
                             <img src={movie.backdropPath!} alt="icon" className={styles.heroImage}/>
@@ -89,10 +121,24 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
                         </div>
 
                         <p className={styles.overview}>{movie.overview}</p>
+
                     </div>
-
-
+                    <Carousel indicators={false} className={styles.carousel}>
+                        {images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={image.file_path ?? ""}
+                                alt={movie.title + " image"}
+                                width={"200px"}
+                                height={"200px"}
+                                className={styles.backdrop}
+                            />
+                        ))}
+                    </Carousel>
                 </div>
+
+
+
             </SwipeableDrawer>
     );
 }

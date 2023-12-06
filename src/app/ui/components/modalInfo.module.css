@@ -38,7 +38,7 @@
 
 .overview {
     font-size: 0.9rem;
-    margin: 1rem 5rem;
+    margin: 0 5rem;
     font-weight: 300;
     line-height: 1.1rem;
     -webkit-font-smoothing: antialiased;
@@ -68,8 +68,9 @@
 }
 
 .heroContainer {
-    height: 800px;
     width: 100%;
+    overflow-y: scroll;
+    border-radius: 20px 20px 0 0
 }
 
 .hero {
@@ -81,7 +82,7 @@
     z-index: 0;
 }
 .heroInfo {
-    margin: 5rem;
+    margin: 0 5rem;
     padding-bottom: 4rem;
     display: flex;
     flex-direction: column;
@@ -125,9 +126,9 @@
 }
 
 .closeButtonWrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
-    right: 0;
+    right: calc(15%);
     z-index: 100;
     margin: 1rem;
     padding: 0.3rem;
@@ -148,4 +149,45 @@
 .providerLogo {
     border-radius: 8px;
     margin-right: 15px;
+}
+
+.label_provider {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.label_provider p:first-child {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 0.8;
+    color : var(--grey-2);
+    margin-bottom: 0.3rem;
+}
+
+.label_provider p:last-child {
+    font-size: 14px;
+    font-weight: 600;
+    color : white;
+}
+
+.image_galery {
+
+    z-index: 20;
+    padding-bottom: 5rem;
+
+}
+
+.backdrop {
+    object-fit: cover;
+    width: 100%;
+    z-index: 40;
+    aspect-ratio: 16/9;
+    object-position: top;
+}
+
+.carousel {
+    width: 100%;
+    margin: 5rem 0;
+    height: 600px;
 }

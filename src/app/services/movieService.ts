@@ -1,6 +1,7 @@
 import Movie from "@/app/classes/Movie";
 import {APIKEY, BASEURL} from "../../../values/constants";
 import WatchProvider from "@/app/classes/WatchProvider";
+import {ImageMovie} from "@/app/classes/ImageMovie";
 
 
 async function makeRequest<T>(url: string): Promise<T> {
@@ -260,4 +261,46 @@ export async function getTrendingSeries(page: number = 1) {
     }
 }
 
+export async function getMovieImagesMovies(movieId: number): Promise<ImageMovie[]> {
+    const url = `${BASEURL}/movie/${movieId}/images`;
 
+    try {
+        const response = await makeRequest<{ backdrops?: any[] }>(url);
+
+        // Check if the 'backdrops' property exists and is an array
+        const backdrops = response?.backdrops;
+
+        if (Array.isArray(backdrops)) {
+            // Map the array to an array of ImageMovie instances
+            return backdrops.slice(0, 10).map(backdrop => new ImageMovie(backdrop));
+        } else {
+            console.error(`Invalid or missing 'backdrops' property in the response for movie ${movieId}`);
+            return [];
+        }
+    } catch (error) {
+        console.error(`Error fetching movie images for movie ${movieId}:`, error);
+        return [];
+    }
+}
+export async function getMovieImagesSeries(movieId: number): Promise<ImageMovie[]> {
+    const url = `${BASEURL}/tv/${movieId}/images`;
+
+    try {
+        const response = await makeRequest<{ backdrops?: any[] }>(url);
+
+        // Check if the 'backdrops' property exists and is an array
+        const backdrops = response?.backdrops;
+
+        if (Array.isArray(backdrops)) {
+            // Map the array to an array of ImageMovie instances
+            const imageMovies = backdrops.slice(0,10).map(backdrop => new ImageMovie(backdrop));
+            return imageMovies;
+        } else {
+            console.error(`Invalid or missing 'backdrops' property in the response for movie ${movieId}`);
+            return [];
+        }
+    } catch (error) {
+        console.error(`Error fetching movie images for movie ${movieId}:`, error);
+        return [];
+    }
+}
