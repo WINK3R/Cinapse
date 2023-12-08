@@ -3,6 +3,9 @@ import React, {useEffect, useRef, useState} from "react";
 import Movie from "@/app/classes/Movie";
 import ShowCaseCell from "@/app/ui/components/ShowCaseCell";
 import Image from "next/image";
+import Loading from "@/app/loading";
+import {Skeleton} from "@mui/material";
+import {ShowCaseSkeleton} from "@/app/ui/skeletons/showCaseSkeleton";
 
 interface props {
     title: string
@@ -57,31 +60,42 @@ export function ShowCaseCollection({title, fetchFunction}: props) {
         });
     }
 
+    if(movies.length == 0) {
+        return (
+            <div className={styles.collectionContainer}>
+                <h1 className={styles.collectionTitle}>{title}</h1>
+                    <ShowCaseSkeleton/>
 
-    return (
-        <div className={styles.collectionContainer}>
-            <h1 className={styles.collectionTitle}>{title}</h1>
-            <div ref={collectionRef} onScroll={isAtMaxOrMinScroll} className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.spacingRow}`}>
-                {movies.map((movie: Movie, idx) => (
-                    <ShowCaseCell movie={movie} key={idx}/>
-                ))}
-                <div className={styles.scrollButtonContainer} style={{ display: isAtMaxScroll ? 'none' : 'flex' }} onClick={() => { scrollCollection(false) }}>
-                    <Image className={styles.scrollButton} src={"/right-scroll.png"} alt={"scroll right"} width={50} height={50}></Image>
-                </div>
-                <div className={styles.scrollButtonContainerLeft} style={{ display: isAtMinScroll ? 'none' : 'flex' }} onClick={() => { scrollCollection(true) }}>
-                    <Image className={`${styles.scrollButton} ${styles.left}`} src={"/right-scroll.png"} alt={"scroll left"} width={50} height={50}></Image>
-                </div>
-                <Image
-                    src="/loadMoreButton.svg"
-                    width={259}
-                    height={389}
-                    alt={"poster"}
-                    className={styles.addButton}
-                    onClick={handleAdd}
-                />
             </div>
-        </div>
-    )
+        )
+    }
+    else {
+        return (
+            <div className={styles.collectionContainer}>
+                <h1 className={styles.collectionTitle}>{title}</h1>
+                <div ref={collectionRef} onScroll={isAtMaxOrMinScroll} className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.spacingRow}`}>
+                    {movies.map((movie: Movie, idx) => (
+                        <ShowCaseCell movie={movie} key={idx}/>
+                    ))}
+                    <div className={styles.scrollButtonContainer} style={{ display: isAtMaxScroll ? 'none' : 'flex' }} onClick={() => { scrollCollection(false) }}>
+                        <Image className={styles.scrollButton} src={"/right-scroll.png"} alt={"scroll right"} width={50} height={50}></Image>
+                    </div>
+                    <div className={styles.scrollButtonContainerLeft} style={{ display: isAtMinScroll ? 'none' : 'flex' }} onClick={() => { scrollCollection(true) }}>
+                        <Image className={`${styles.scrollButton} ${styles.left}`} src={"/right-scroll.png"} alt={"scroll left"} width={50} height={50}></Image>
+                    </div>
+                    <Image
+                        src="/loadMoreButton.svg"
+                        width={259}
+                        height={389}
+                        alt={"poster"}
+                        className={styles.addButton}
+                        onClick={handleAdd}
+                    />
+                </div>
+            </div>
+        )
+    }
+
 }
 
 

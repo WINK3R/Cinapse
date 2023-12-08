@@ -200,3 +200,8 @@
 }
 
 
+.showCaseSkeletonContainer {
+    display: -webkit-inline-box;
+}
+
+
