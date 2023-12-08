@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from "react";
 import Movie from "@/app/classes/Movie";
 import ShowCaseCell from "@/app/ui/components/ShowCaseCell";
 import Image from "next/image";
-import Loading from "@/app/loading";
 import {Skeleton} from "@mui/material";
 import {ShowCaseSkeleton} from "@/app/ui/skeletons/showCaseSkeleton";
 
