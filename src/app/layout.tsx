@@ -16,6 +16,7 @@ export default function RootLayout({
               <NavBar></NavBar>
               <div className={`${inter.className} antialiased`}>{children}</div>
           </body>
+          <SpeedInsights/>
       </html>
   );
 }
