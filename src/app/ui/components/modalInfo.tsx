@@ -65,8 +65,8 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
 
     return (
 
-            <SwipeableDrawer anchor="bottom" open={isOpen} onClose={() => {toggleDrawer(false)}} className={styles.modal} BackdropProps={{style:{backgroundColor:"black", opacity:0.4}}} PaperProps={{
-                sx: {overflow:"scroll", minHeight: "100%",borderRadius: "20px 20px 0px 0px", margin: "auto", backgroundColor: "black", color: "white"}
+            <SwipeableDrawer anchor="bottom" open={isOpen} onClose={() => {toggleDrawer(false)}} className={styles.modal} BackdropProps={{style:{backgroundColor:"black", opacity:0.8}}} PaperProps={{
+                sx: {overflow:"scroll", minHeight: "100%", maxWidth: "90%" ,borderRadius: "20px 20px 0px 0px", margin: "auto", backgroundColor: "black", color: "white"}
             }} onOpen={function (event: React.SyntheticEvent<{}, Event>): void {
                 throw new Error('Function not implemented.');
             }} allowSwipeInChildren={ true}>
