@@ -203,6 +203,25 @@
     display: -webkit-inline-box;
 }
 
+.collectionSkeleton {
+    width: 259px;
+    height: 389px;
+    background-color: #1c1c1c;
+    animation: pulse 1.5s infinite;
+}
+
+.showcaseSkeleton {
+    width: 658px;
+    height: 370px;
+    background-color: #1c1c1c;
+}
+
+.titleSkeleton {
+    height: 30px;
+    width: 400px;
+    background-color: #1c1c1c;
+}
+
 
 @media screen and (max-width: 767px){
     .heroImage {
@@ -251,4 +270,26 @@
     .addButton {
         height: 172px;
     }
+
+    .collectionSkeleton {
+        width: 114px;
+        height: 172px;
+        object-fit: cover;
+    }
+
+    .showcaseSkeleton {
+        width: 306px;
+        height: 172px;
+        background-color: #1c1c1c;
+    }
+
+    .titleSkeleton {
+        height: 25px;
+        width: 250px;
+        background-color: #1c1c1c;
+    }
+
+
+
+
 }

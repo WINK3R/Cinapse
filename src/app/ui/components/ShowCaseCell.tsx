@@ -19,7 +19,7 @@ const ShowCaseCell: React.FC<MovieCellProps> = ({ movie }) => {
     })
 
     const handleMoreButtonClick = () => {
-        // Set isActive to true when the "more-button" is clicked
+       console.log("clicked")
        setIsActive(true)
 
     }

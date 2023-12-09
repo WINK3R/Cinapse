@@ -66,7 +66,7 @@ export default function Page() {
                     )}
                 </div>
                 <div className={styles.heroInfo}> {
-                    theMostPopularMovie == null?<Skeleton animation="wave" variant={"rounded"} height={30} width={400} sx={{ bgcolor: 'grey.900' }}/>:<h1 className={styles.heroTitle}>{theMostPopularMovie?.title}</h1>
+                    theMostPopularMovie == null?<Skeleton animation="wave" variant={"rounded"} className={styles.titleSkeleton}/>:<h1 className={styles.heroTitle}>{theMostPopularMovie?.title}</h1>
                 }
 
                     <div className={styles.heroButtons}>
