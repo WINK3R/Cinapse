@@ -1,3 +1,4 @@
+"use client";
 import styles from "@/app/ui/app.module.css";
 import { Skeleton } from "@mui/material";
 import React from "react";
