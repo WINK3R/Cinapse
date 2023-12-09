@@ -1,6 +1,5 @@
 .modal {
     padding: 1rem !important;
-    max-width: 70% !important;
     background-color: black;
 }
 
@@ -86,10 +85,9 @@
 .modal {
     overflow: scroll;
     min-height: 100%;
-    width: 70%;
     border-radius: 20px 20px 0 0;
     margin: auto;
-    background-color: black;
+    background-color: transparent;
     color: white
 }
 .heroInfo {
@@ -207,7 +205,7 @@
     .modal {
         padding: 1rem !important;
         max-width: 90% !important;
-        background-color: black;
+        background-color: transparent;
     }
 
     .overview {
