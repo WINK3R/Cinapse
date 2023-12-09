@@ -226,4 +226,50 @@
         z-index: 40;
     }
 
+    .posterImage {
+        height: 177px !important;
+        width: 118px !important;
+        left: 10px;
+    }
+
+    .detailed .posterImage {
+        height: 189px !important;
+        width: 119px !important;
+        left: 10px;
+        bottom: -5px;
+    }
+
+    .detailed .showCaseMovieHoverInfo {
+        padding-left: 145px;
+        width: 100% ;
+        transition: all 300ms ease-in;
+    }
+
+
+    .detailed, .overlayContainer{
+        width: 306px;
+        transition: all 300ms ease-in;
+    }
+
+    .detailed, .showCaseContainer{
+        width: 306px ;
+        transition: all 300ms ease-in;
+    }
+
+    .detailed .showCaseMovieHover {
+        width: 306px !important ;
+        transition: all 300ms ease-in;
+    }
+
+    .detailed .showCaseMovieHoverInfo {
+        width: 306px !important ;
+        transition: all 300ms ease-in;
+    }
+
+    .detailed .showCaseMovieHover{
+        width: 306px !important;
+        transition: all 300ms ease-in;
+    }
+
+
 }

@@ -24,18 +24,19 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-@media screen and (max-width: 767px){
+@media screen and (max-width: 767px) {
   body,
   html {
     overflow-x: hidden;
   }
-}
 
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: var(--background-color);
-  margin: 0;
-  padding: 0;
+
+  body {
+    color: rgb(var(--foreground-rgb));
+    background: var(--background-color);
+    margin: 0;
+    padding: 0;
+  }
 }
 
