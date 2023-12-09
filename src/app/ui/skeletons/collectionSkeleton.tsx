@@ -2,7 +2,11 @@
 import styles from "@/app/ui/app.module.css";
 import { Skeleton } from "@mui/material";
 import React from "react";
-let isMobile = window.matchMedia("(max-width: 767)").matches;
+let isMobile = false;
+if(typeof window !== 'undefined')
+{
+    isMobile = window.matchMedia("(max-width: 767)").matches;
+}
 export function CollectionSkeleton() {
     return  !isMobile?
     (
