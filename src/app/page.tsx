@@ -16,6 +16,7 @@ import {
 import {ShowCaseCollection} from '@/app/ui/components/ShowCaseCollection';
 import Movie from '@/app/classes/Movie';
 import Image from 'next/image';
+import {Skeleton} from "@mui/material";
 
 export default function Page() {
     const [theMostPopularMovie, setTheMostPopularMovie] = React.useState<Movie | null>(null);
@@ -64,8 +65,10 @@ export default function Page() {
                         />
                     )}
                 </div>
-                <div className={styles.heroInfo}>
-                    <h1 className={styles.heroTitle}>{theMostPopularMovie?.title}</h1>
+                <div className={styles.heroInfo}> {
+                    theMostPopularMovie == null?<Skeleton animation="wave" variant={"rounded"} height={30} width={400} sx={{ bgcolor: 'grey.900' }}/>:<h1 className={styles.heroTitle}>{theMostPopularMovie?.title}</h1>
+                }
+
                     <div className={styles.heroButtons}>
                         <HeroButtonPrimary>En savoir +</HeroButtonPrimary>
                         <HeroButtonSecondary>Enregistrer</HeroButtonSecondary>
