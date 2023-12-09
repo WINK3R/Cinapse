@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Movie from "@/app/classes/Movie";
 import MovieCollectionCell from "@/app/ui/components/MovieCollectionCell";
 import Image from "next/image";
+import {CollectionSkeleton} from "@/app/ui/skeletons/collectionSkeleton";
 
 interface props {
     title: string;
@@ -57,35 +58,50 @@ export function CollectionRow({ title, fetchFunction }: props) {
         });
     }
 
-    return (
+    if(movies.length === 0) return (
         <div className={styles.collectionContainer}>
             <h1 className={styles.collectionTitle}>{title}</h1>
+            <CollectionSkeleton/>
+        </div>)
+else {
+        return (
+            <div className={styles.collectionContainer}>
+                <h1 className={styles.collectionTitle}>{title}</h1>
 
-            <div
-                ref={collectionRef}
-                className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-visible ${styles.spacingRow}`}
-                onScroll={isAtMaxOrMinScroll}
-            >
-                {movies.map((movie: Movie) => (
-                    <MovieCollectionCell movie={movie} key={movie.id} />
-                ))}
-                <div className={styles.scrollButtonContainer} style={{ display: isAtMaxScroll ? 'none' : 'flex' }} onClick={() => { scrollCollection(false) }}>
-                    <Image className={styles.scrollButton} src={"/right-scroll.png"} alt={"scroll right"} width={50} height={50}></Image>
+                <div
+                    ref={collectionRef}
+                    className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-visible ${styles.spacingRow}`}
+                    onScroll={isAtMaxOrMinScroll}
+                >
+                    {movies.map((movie: Movie) => (
+                        <MovieCollectionCell movie={movie} key={movie.id}/>
+                    ))}
+                    <div className={styles.scrollButtonContainer} style={{display: isAtMaxScroll ? 'none' : 'flex'}}
+                         onClick={() => {
+                             scrollCollection(false)
+                         }}>
+                        <Image className={styles.scrollButton} src={"/right-scroll.png"} alt={"scroll right"} width={50}
+                               height={50}></Image>
+                    </div>
+                    <div className={styles.scrollButtonContainerLeft} style={{display: isAtMinScroll ? 'none' : 'flex'}}
+                         onClick={() => {
+                             scrollCollection(true)
+                         }}>
+                        <Image className={`${styles.scrollButton} ${styles.left}`} src={"/right-scroll.png"}
+                               alt={"scroll left"} width={50} height={50}></Image>
+                    </div>
+                    <Image
+                        src="/loadMoreButton.svg"
+                        width={259}
+                        height={389}
+                        alt={"poster"}
+                        className={styles.addButton}
+                        onClick={handleAdd}
+                    />
                 </div>
-                <div className={styles.scrollButtonContainerLeft} style={{ display: isAtMinScroll ? 'none' : 'flex' }} onClick={() => { scrollCollection(true) }}>
-                    <Image className={`${styles.scrollButton} ${styles.left}`} src={"/right-scroll.png"} alt={"scroll left"} width={50} height={50}></Image>
-                </div>
-                <Image
-                    src="/loadMoreButton.svg"
-                    width={259}
-                    height={389}
-                    alt={"poster"}
-                    className={styles.addButton}
-                    onClick={handleAdd}
-                />
             </div>
-        </div>
-    );
+        )
+    }
 }
 
 export default CollectionRow;
