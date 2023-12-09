@@ -171,8 +171,7 @@
 }
 
 .spacingRow {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding: 1.5rem 5rem;
 }
 .collectionTitle {
     font-size: 36px;
@@ -205,3 +204,51 @@
 }
 
 
+@media screen and (max-width: 767px){
+    .heroImage {
+        object-position: top;
+        height: 60%;
+    }
+
+    .heroTitle {
+        font-size: 24px;
+        width: 100%;
+    }
+
+    .heroInfo {
+        margin: 1rem;
+    }
+
+    .hero {
+        height: 400px;
+    }
+
+    .heroButtons {
+        padding-top: 0.5rem;
+        display: grid;
+        grid-gap: 5px;
+        width: 200px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .collectionTitle {
+        font-size: 18px;
+        margin-left: 1rem;
+        font-weight: bold;
+        z-index: 10;
+        overflow: visible;
+    }
+
+    .spacingRow {
+        padding: 0.8rem 1rem;
+    }
+
+    .scrollButtonContainer,
+    .scrollButtonContainerLeft {
+        visibility: hidden;
+    }
+
+    .addButton {
+        height: 172px;
+    }
+}

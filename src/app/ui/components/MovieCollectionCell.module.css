@@ -174,4 +174,24 @@
     object-fit: cover;
     transition: all 300ms ease-in;
 }
+@media screen and (max-width: 767px){
 
+    .showCaseContainer {
+        width: 306px;
+        position: relative;
+        height: 172px;
+        grid-gap: 5px;
+        display: flex;
+        transition: all 300ms ease-in;
+    }
+
+    .movieCover {
+        width: 114px;
+        height: 172px;
+        object-fit: cover;
+        transition: all 300ms ease-in;
+        filter: brightness(1);
+        -webkit-box-shadow: 0 10px 29px 7px rgba(0,0,0,0);
+        box-shadow: 0 20px 29px 7px rgba(0,0,0,0);
+    }
+}

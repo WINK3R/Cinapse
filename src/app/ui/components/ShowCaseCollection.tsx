@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from "react";
 import Movie from "@/app/classes/Movie";
 import ShowCaseCell from "@/app/ui/components/ShowCaseCell";
 import Image from "next/image";
-import {Skeleton} from "@mui/material";
 import {ShowCaseSkeleton} from "@/app/ui/skeletons/showCaseSkeleton";
 
 interface props {
@@ -72,7 +71,7 @@ export function ShowCaseCollection({title, fetchFunction}: props) {
         return (
             <div className={styles.collectionContainer}>
                 <h1 className={styles.collectionTitle}>{title}</h1>
-                <div ref={collectionRef} onScroll={isAtMaxOrMinScroll} className={`flex gap-2 pl-20 pr-20 overflow-x-scroll overflow-y-hidden ${styles.spacingRow}`}>
+                <div ref={collectionRef} onScroll={isAtMaxOrMinScroll} className={`flex gap-2 overflow-x-scroll overflow-y-hidden ${styles.spacingRow}`}>
                     {movies.map((movie: Movie, idx) => (
                         <ShowCaseCell movie={movie} key={idx}/>
                     ))}
