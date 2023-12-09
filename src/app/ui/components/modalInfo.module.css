@@ -136,7 +136,7 @@
 .closeButtonWrapper {
     position: fixed;
     top: 0;
-    right: calc(15%);
+    right: 0;
     z-index: 100;
     margin: 1rem;
     padding: 0.3rem;
@@ -195,9 +195,8 @@
 }
 
 .carousel {
-    width: 100%;
     margin: 5rem 0;
-    height: 600px;
+    height: 800px;
 }
 
 @media screen and (max-width: 767px) {
