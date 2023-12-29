@@ -34,6 +34,7 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
     const [actors, setActors] = useState<Actor[]>([]);
     const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
     const [isOpened, setIsOpened] = useState<boolean>(isOpen);
+    const texte = "Têtes d'affiche"
     const fetchWatchProviders = async () => {
         try {
             let providers : WatchProvider[];
@@ -168,7 +169,7 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
                             />
                         ))}
                     </Carousel>
-                    <h1 className={styles.categoryTitle}>Têtes d'affiche</h1>
+                    <h1 className={styles.categoryTitle}>{texte}</h1>
                     <div className={styles.actorCollection}>
                     {actors.map((actor, index) => (
                         <ActorCell actor={actor} key={index}/>
