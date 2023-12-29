@@ -1,0 +1,45 @@
+.actorCell {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 121px;
+  height: 192px;
+  flex-shrink: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #111;
+  border: #242424 1px solid;
+}
+
+.actor_image {
+  width: 121.379px;
+  object-fit: cover;
+  height: 133.149px;
+  flex-shrink: 0;
+}
+
+.actorInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  color: #000;
+}
+
+.actorName {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  color: white;
+}
+
+.actorRole {
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 0.75rem;
+  color: grey;
+}

@@ -34,7 +34,6 @@ class Movie {
         this.voteAverage = data.vote_average;
         this.voteCount = data.vote_count;
         this.type = data.original_title ? 'movie' : 'serie';
-        console.log(this);
     }
 }
 

@@ -36,8 +36,6 @@ export function CollectionRow({ title, fetchFunction }: props) {
     }
 
     function isAtMaxOrMinScroll() {
-        console.log(collectionRef.current?.scrollLeft)
-        console.log(collectionRef.current?.scrollWidth! - 1100)
         if (collectionRef.current) {
             const container = collectionRef.current;
             setIsAtMaxScroll(container.scrollLeft >= (container.scrollWidth- container.clientWidth - 100));

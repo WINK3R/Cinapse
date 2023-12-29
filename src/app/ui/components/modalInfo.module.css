@@ -133,6 +133,21 @@
     font-size: 36px;
 }
 
+.categoryTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+    color: white;
+    margin: 1rem 5rem;
+}
+
+.actorCollection {
+    display: flex;
+    overflow-x: scroll;
+    padding: 1rem 5rem;
+    margin-bottom: 1rem;
+}
+
 .closeButtonWrapper {
     position: fixed;
     top: 0;
@@ -193,6 +208,7 @@
     aspect-ratio: 16/9;
     object-position: top;
 }
+
 
 .carousel {
     margin: 5rem 0;

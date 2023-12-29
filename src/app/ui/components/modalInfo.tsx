@@ -8,8 +8,9 @@ import StarIcon from '@mui/icons-material/Star';
 import CloseIcon from '@mui/icons-material/Close';
 import { Carousel } from 'flowbite-react';
 import {
+    getActors,
     getMovieImagesMovies,
-    getMovieImagesSeries,
+    getMovieImagesSeries, getSimilarMovie,
     getWatchProvidersMovie,
     getWatchProvidersSerie
 } from "@/app/services/movieService";
@@ -17,6 +18,9 @@ import WatchProvider from "@/app/classes/WatchProvider";
 import {getGenreNameByIdSerie} from "../../../../values/SerieGenre";
 import Image from "next/image";
 import {ImageMovie} from "@/app/classes/ImageMovie";
+import Actor from "@/app/classes/Actor";
+import {ActorCell} from "@/app/ui/components/ActorCell";
+import MovieCollectionCell from "@/app/ui/components/MovieCollectionCell";
 
 
 interface modalProps{
@@ -27,41 +31,70 @@ interface modalProps{
 export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
     const [watchProviders, setWatchProviders] = useState<WatchProvider[]>([]);
     const [images, setImages] = useState<ImageMovie[]>([]);
+    const [actors, setActors] = useState<Actor[]>([]);
+    const [similarMovies, setSimilarMovies] = useState<Movie[]>([]);
+    const [isOpened, setIsOpened] = useState<boolean>(isOpen);
+    const fetchWatchProviders = async () => {
+        try {
+            let providers : WatchProvider[];
+            if(movie.type == "movie"){
+                providers = await getWatchProvidersMovie(movie.id);
+
+            }
+            else {
+                providers = await getWatchProvidersSerie(movie.id);
+            }
+            setWatchProviders(providers);
+        } catch (error) {
+            console.error('Error fetching watch providers:', error);
+        }
+    };
+    const fetchMovieImages = async () => {
+        try {
+            let movieImages : ImageMovie[];
+            if(movie.type == "movie"){
+                movieImages = await getMovieImagesMovies(movie.id);
+
+            }
+            else {
+                movieImages = await getMovieImagesSeries(movie.id);
+            }
+            setImages(movieImages);
+        } catch (error) {
+            console.error('Error fetching movie images:', error);
+        }
+    };
+
+    const fetchActors = async () => {
+        try {
+            let actors : Actor[];
+            actors = await getActors(movie);
+            setActors(actors);
+        } catch (error) {
+            console.error('Error fetching Actors:', error);
+        }
+    };
+
+    const fetchSimilarMovies = async () => {
+        try {
+            let similarMovies : Movie[];
+            similarMovies = await getSimilarMovie(movie);
+            setSimilarMovies(similarMovies);
+        } catch (error) {
+            console.error('Error fetching Actors:', error);
+        }
+    }
+
     useEffect(() => {
-        const fetchWatchProviders = async () => {
-            try {
-                let providers : WatchProvider[];
-                if(movie.type == "movie"){
-                     providers = await getWatchProvidersMovie(movie.id);
+        if (isOpen) {
+            // Fetch data when the drawer is opened
+            fetchWatchProviders();
+            fetchMovieImages();
+            fetchActors();
+            fetchSimilarMovies();
+        }
+    }, [isOpen]);
 
-                }
-                else {
-                     providers = await getWatchProvidersSerie(movie.id);
-                }
-                setWatchProviders(providers);
-            } catch (error) {
-                console.error('Error fetching watch providers:', error);
-            }
-        };
-        const fetchMovieImages = async () => {
-            try {
-                let movieImages : ImageMovie[];
-                if(movie.type == "movie"){
-                    movieImages = await getMovieImagesMovies(movie.id);
-
-                }
-                else {
-                    movieImages = await getMovieImagesSeries(movie.id);
-                }
-                setImages(movieImages);
-            } catch (error) {
-                console.error('Error fetching movie images:', error);
-            }
-        };
-
-        fetchWatchProviders();
-        fetchMovieImages();
-    }, [movie]);
 
     return (
 
@@ -94,7 +127,7 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
                                             provider.logoPath && provider.displayPriority < 12 && (<Image key={"provider"+index} src={provider.logoPath} alt={provider.providerName} width={50} height={50} className={styles.providerLogo}></Image>)))
                                     }
                                     {
-                                        watchProviders.length > 0 && (<div className={styles.label_provider}>
+                                        watchProviders.length !=0 && (<div className={styles.label_provider}>
                                             <p>Disponible en streaming</p>
                                             <p>Regarder maintenant</p>
                                         </div>)
@@ -135,6 +168,19 @@ export function BottomDrawer({isOpen, movie, toggleDrawer}: modalProps){
                             />
                         ))}
                     </Carousel>
+                    <h1 className={styles.categoryTitle}>Têtes d'affiche</h1>
+                    <div className={styles.actorCollection}>
+                    {actors.map((actor, index) => (
+                        <ActorCell actor={actor} key={index}/>
+                    ))}
+                    </div>
+
+                    <h1 className={styles.categoryTitle}>Titres similaires</h1>
+                    <div className={styles.actorCollection}>
+                        {similarMovies.map((movie, index) => (
+                            <MovieCollectionCell movie={movie} key={index}/>
+                        ))}
+                    </div>
                 </div>
 
 

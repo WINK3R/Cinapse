@@ -2,6 +2,7 @@ import Movie from "@/app/classes/Movie";
 import {APIKEY, BASEURL} from "../../../values/constants";
 import WatchProvider from "@/app/classes/WatchProvider";
 import {ImageMovie} from "@/app/classes/ImageMovie";
+import Actor from "@/app/classes/Actor";
 
 
 async function makeRequest<T>(url: string): Promise<T> {
@@ -99,6 +100,24 @@ export async function getMostPopularMovie(): Promise<Movie | null> {
     } catch (error) {
         console.error('Error fetching most popular movie:', error);
         return null;
+    }
+}
+
+export async function getSimilarMovie( movie: Movie): Promise<Movie[]> {
+    let url
+    if(movie.type === 'movie') {
+        url = `${BASEURL}/movie/${movie.id}/similar?language=fr-FR&page=1`;
+    }
+    else{
+        url = `${BASEURL}/tv/${movie.id}/similar?language=fr-FR&page=1`;
+    }
+    try {
+        const { results } = await makeRequest<{ results: any[] }>(url);
+        console.log(results);
+        return results.map(movieData => new Movie(movieData));
+    } catch (error) {
+        console.error('Error fetching popular movies:', error);
+        return [];
     }
 }
 
@@ -301,6 +320,30 @@ export async function getMovieImagesSeries(movieId: number): Promise<ImageMovie[
         }
     } catch (error) {
         console.error(`Error fetching movie images for movie ${movieId}:`, error);
+        return [];
+    }
+}
+
+export async function getActors(movie: Movie): Promise<Actor[]> {
+    let url;
+    if(movie.type === 'movie') {
+         url = `${BASEURL}/movie/${movie.id}/credits`;
+    }
+    else {
+         url = `${BASEURL}/tv/${movie.id}/credits`;
+    }
+
+    try {
+        const { cast } = await makeRequest<{ cast: any[] }>(url);
+
+        if (Array.isArray(cast)) {
+            return cast.slice(0,20).map(actorData => new Actor(actorData));
+        } else {
+            console.error(`Invalid or missing 'cast' property in the response for series ${movie.id}`);
+            return [];
+        }
+    } catch (error) {
+        console.error(`Error fetching actors for series ${movie.id}:`, error);
         return [];
     }
 }
