@@ -1,6 +1,6 @@
 import Movie from "@/app/classes/Movie";
 import Actor from "@/app/classes/Actor";
-import styles from "@/app/ui/components/actorCell.module.css";
+import styles from "@/app/ui/components/ActorCell.module.css";
 interface props {
     actor: Actor;
 }
